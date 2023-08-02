@@ -1,9 +1,12 @@
+import Footer from "./components/footer/Footer";
+import Navbar from "./components/navbar/Navbar"
+
 const App = () => {
 
   return (
     <>
-      <h1>Test - Qui ci va la Home ( per ora )</h1>
-      <p>Per avviare l'app usa il comando "npm run dev"</p>
+      <Navbar />
+      <Footer />
     </>      
   )
 }
