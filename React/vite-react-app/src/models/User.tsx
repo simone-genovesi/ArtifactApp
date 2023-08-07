@@ -17,7 +17,7 @@ export interface LoginDTO {
     password: string;
   }
 
-export interface RegistrationDTO {
+export interface RegisterDTO {
     firstname: string;
     lastname: string;
     email: string;

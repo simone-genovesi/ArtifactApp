@@ -6,10 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/controller")
@@ -29,6 +28,11 @@ public class DemoController {
         User user = userRepository.findByEmail(email).orElseThrow();
 
         return ResponseEntity.ok(user);
+    }
+
+    @GetMapping("get-profile/{id}")
+    public ResponseEntity<Optional<User>> getUserById(@PathVariable String id) {
+        return ResponseEntity.ok(userRepository.findById(id));
     }
 
 }
