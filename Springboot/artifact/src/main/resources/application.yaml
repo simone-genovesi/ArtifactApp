@@ -7,3 +7,8 @@ spring:
       database: artifactdb
       port: 27017
       host: localhost
+      auto-index-creation: true
+
+logging:
+  level:
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
