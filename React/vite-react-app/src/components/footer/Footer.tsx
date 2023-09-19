@@ -4,7 +4,7 @@ const Footer = () => {
       <p className="footer-by">
         Un progetto di Simone Genovesi e Arianna Diaz
       </p>
-    </footer>
+      </footer>
     );
 }
 
