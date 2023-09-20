@@ -47,7 +47,7 @@ const Registration = () => {
     },
   });
 
-return (
+  return (
   <ThemeProvider theme={theme}>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -128,7 +128,7 @@ return (
       </Box>
     </Container>
     </ThemeProvider>
-);
+  );
 };
 
 export default Registration;

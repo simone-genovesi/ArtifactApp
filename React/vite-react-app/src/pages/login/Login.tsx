@@ -1,21 +1,35 @@
-import React, { useState } from 'react';
 import { LoginDTO, Token, User } from '../../models/User';
 import { getUserData, login } from '../../services/AuthService';
 import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const Login = () => {
-  const [loginData, setLoginData] = useState<LoginDTO>({
-    email: '',
-    password: '',
-  });
-
+  
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    
     try {
-      const token: Token = await login(loginData);
+      const form = e.currentTarget as HTMLFormElement;
+
+      const loginForm : LoginDTO = {
+        email: form.email.value,
+        password: form.password.value,
+      };
+
+      const token: Token = await login(loginForm);
+
       console.log('Token JWT:', token);
 
      // Salva il token nel local storage o nei cookie.
@@ -51,40 +65,74 @@ const Login = () => {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setLoginData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  const theme = createTheme({
+    palette: {
+      background: {
+        default: '#d7ebf6', // Cambia il colore di sfondo predefinito
+      },
+    },
+  });
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
-        <div>
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={loginData.email}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={loginData.password}
-            onChange={handleChange}
-          />
-        </div>
-        <button type="submit">Accedi</button>
-      </form>
-    </div>
-  );
-};
-
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Login
+          </Typography>
+          <Box component="form" noValidate onSubmit={handleLogin} sx={{ mt: 3 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email"
+                  name="email"
+                  autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Login
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link href="registration" variant="body2">
+                  Non hai un account? Createne uno
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Container>
+      </ThemeProvider>
+    );
+}
 export default Login;

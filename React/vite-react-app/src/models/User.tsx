@@ -27,3 +27,16 @@ export interface RegisterDTO {
 export interface Token {
     token: string
   }
+
+// Definisci il tipo per il contesto di autenticazione
+export interface AuthContextType {
+  user: User | null;
+  loading: boolean;
+  login: (loginData: LoginDTO) => Promise<void>;
+  register: (registerData: RegisterDTO) => Promise<User>;
+  getUserData: () => Promise<User | null>;
+  logout: () => void;
+  isAuthenticated: () => boolean;
+  getCurrentUser: () => User | null;
+  getUserById: (userId: string) => Promise<User>;
+}

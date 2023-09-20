@@ -30,6 +30,7 @@ export const getUserData = async (token: string): Promise<User> => {
 
 export const logout = () => {
   localStorage.removeItem('user');
+  localStorage.removeItem('token'); // si elimina anche il token per sicurezza
 };
 
 export const isAuthenticated = () => {
@@ -43,11 +44,6 @@ export const getCurrentUser = (): User | null => {
   }
   const user = JSON.parse(userJsonString) as User;
   return user;
-};
-
-export const getTokenFromLocalStorage = (): string | null => {
-  const token = localStorage.getItem('token');
-  return token;
 };
 
 export const getUserById = async (userId: string): Promise<User> => {
